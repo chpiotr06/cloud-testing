@@ -14,9 +14,9 @@ const server = http.createServer(
 
     if (req.method == "GET" && req.url == "/api/test/1") {
       const uuid = randomUUID();
-      const salt = await genSalt(100);
-      const hash = await hash(uuid, salt);
-      const testPayload = { uuid, hash };
+      const salt = await genSalt(13);
+      const hashedValue = await hash(uuid, salt);
+      const testPayload = { uuid, hash: hashedValue };
 
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(testPayload));
