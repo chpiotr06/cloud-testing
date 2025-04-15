@@ -1,0 +1,8 @@
+{
+  "appPort": 3000,
+  "cache": {
+    "host": "localhost",
+    "port": 5000,
+    "expirationTime": 50
+  }
+}
