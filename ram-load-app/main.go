@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	configPath := flag.String("config", "./config.json", "Path to the config json file")
+	configPath := flag.String("config", "config.json", "Path to the config json file")
 	flag.Parse()
 
 	config := new(Config)
@@ -18,9 +18,10 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /health", s.health)
-	mux.HandleFunc("GET /session", s.getSession)
+	mux.HandleFunc("GET /session/{uuid}", s.getSession)
 	mux.HandleFunc("POST /session", s.postSession)
 
-	err := http.ListenAndServe(fmt.Sprintf(":%d",config.AppPort), mux)
+	fmt.Printf("Server listening on :%d", config.AppPort)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", config.AppPort), mux)
 	Fail(err)
 }

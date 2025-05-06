@@ -1,0 +1,19 @@
+services:
+  web:
+    build: .
+    container_name: go-api 
+    ports: 
+      - '3000:3000'
+    depends_on:
+      - memcached
+    networks:
+      - app-network
+  memcached:
+    image: "memcached:1.6.38-alpine"
+    container_name: cache-service
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
