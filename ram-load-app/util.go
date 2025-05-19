@@ -3,8 +3,14 @@ package main
 import (
 	"fmt"
 	"log/slog"
+	"net/http"
 	"os"
 )
+
+func WarnAndRespond(w http.ResponseWriter, err error, message string, status int) {
+	Warn(err)
+	jsonResponse(w, resp{Msg: message}, status)
+}
 
 func WarnAndReturn(err error, message string) error {
 		Warn(err)

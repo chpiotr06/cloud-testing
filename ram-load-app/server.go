@@ -25,8 +25,6 @@ func newServer(cfg *Config) *server {
 
 func jsonResponse(w http.ResponseWriter, value any, status int) {
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(value); err != nil {
-		Warn(err)
-		http.Error(w, err.Error(), status)
-	}
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(value)
 }

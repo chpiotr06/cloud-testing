@@ -17,9 +17,10 @@ func (s *server) getSession(w http.ResponseWriter, req *http.Request) {
 
 	sess := Session{}
 	err := sess.getFromCache(s.cache, param)
+
 	if err != nil {
-		Warn(err)
-		jsonResponse(w, resp{Msg: "Unable to get session"}, http.StatusBadRequest)
+		WarnAndRespond(w, err, "Unable to get session", http.StatusBadRequest)
+		return
 	}
 
 	jsonResponse(w, &sess, 200)
@@ -30,8 +31,8 @@ func (s *server) postSession(w http.ResponseWriter, req *http.Request) {
 	userSession := new(SessionDto)
 	err := decoder.Decode(&userSession)
 	if err != nil {
-		Warn(err)
-		jsonResponse(w, resp{Msg: "Unable to decode session"}, http.StatusBadRequest)
+		WarnAndRespond(w, err, "Unable to decode session", http.StatusBadRequest)
+		return 
 	}
 
 	now := time.Now()
@@ -45,8 +46,8 @@ func (s *server) postSession(w http.ResponseWriter, req *http.Request) {
 
 	err = serverSession.insertToCache(s.cache, int32(s.cfg.CacheConfig.ExpirationTime))
 	if err != nil {
-		Warn(err)
-		jsonResponse(w, resp{Msg: "Unable to set session in cache"}, http.StatusBadRequest)
+		WarnAndRespond(w, err, "Unable to set session in cache", http.StatusInternalServerError)
+		return
 	}
 
 	jsonResponse(w, &serverSession, 201)
