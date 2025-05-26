@@ -1,9 +1,9 @@
 services:
   web:
     build: .
-    container_name: go-api 
-    ports: 
-      - '3000:3000'
+    container_name: go-api
+    ports:
+      - "3000:3000"
     depends_on:
       - memcached
     networks:
