@@ -1,19 +1,17 @@
 services:
   cpuload:
-    build: .
-    # image: cpu-load-app-cpuload
+    image: cpu-load-app-cpuload
     container_name: cpu-app
     ports:
       - "4000:3000"
-
-  influxdb:
-    image: influxdb:1.8
-    ports:
-      - "8086:8086"
-    environment:
-      - INFLUXDB_DB=k6
-    volumes:
-      - influxdb-storage:/var/lib/influxdb
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
 
   prometheus:
     image: prom/prometheus:latest
@@ -57,4 +55,3 @@ services:
 volumes:
   prometheus_data:
   grafana_data:
-  influxdb-storage:
