@@ -111,7 +111,131 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "Container memory usage",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "{__name__=\"container_memory_working_set_bytes\", container_label_com_docker_compose_project=\"cpu-load-app\", container_label_com_docker_compose_service=\"cpuload\", container_label_com_docker_compose_version=\"2.39.1\", container_label_com_docker_stack_namespace=\"monitoring\", container_label_com_docker_swarm_node_id=\"iwoahwzg68fu0rnwrunhr2gy0\", container_label_com_docker_swarm_service_id=\"iei9824sfu82oia6jebim7jr2\", container_label_com_docker_swarm_service_name=\"monitoring_cpuload\", container_label_com_docker_swarm_task_id=\"ow17t7n4cmx44xeqtanb7z0e1\", container_label_com_docker_swarm_task_name=\"monitoring_cpuload.1.ow17t7n4cmx44xeqtanb7z0e1\", id=\"/system.slice/docker-4dde195b5830956033ee030903a54eda7073ba7d5fbd752a8b8a7cc42c834b12.scope\", image=\"cpu-load-app-cpuload:latest\", instance=\"cadvisor:8080\", job=\"cadvisor\", name=\"monitoring_cpuload.1.ow17t7n4cmx44xeqtanb7z0e1\"}"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 74,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.0-16711121739",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "container_memory_working_set_bytes{container_label_com_docker_swarm_service_name=\"monitoring_cpuload\"}",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Memory usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "CPU usage in cores share",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
@@ -163,7 +287,7 @@
               "options": {
                 "mode": "exclude",
                 "names": [
-                  "{__name__=\"container_memory_working_set_bytes\", container_label_com_docker_compose_project=\"cpu-load-app\", container_label_com_docker_compose_service=\"cpuload\", container_label_com_docker_compose_version=\"2.39.1\", container_label_com_docker_stack_namespace=\"monitoring\", container_label_com_docker_swarm_node_id=\"5qqbyn0vhpptw4p75g45a9ep7\", container_label_com_docker_swarm_service_id=\"rxlbqjuo0tfsm64bjypjfhi6u\", container_label_com_docker_swarm_service_name=\"monitoring_cpuload\", container_label_com_docker_swarm_task_id=\"6o5cs2m7je3pnq8ie5mcprwz9\", container_label_com_docker_swarm_task_name=\"monitoring_cpuload.1.6o5cs2m7je3pnq8ie5mcprwz9\", id=\"/system.slice/docker-e4e93929e01b94c56ddbdd6ce39ada4cc8c5fdf054165697e32571814cb2a5f1.scope\", image=\"cpu-load-app-cpuload:latest\", instance=\"cadvisor:8080\", job=\"cadvisor\", name=\"monitoring_cpuload.1.6o5cs2m7je3pnq8ie5mcprwz9\"}"
+                  "avg(rate(container_cpu_usage_seconds_total{container_label_com_docker_swarm_service_name=\"monitoring_cpuload\"}[1m]))"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -185,104 +309,6 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 74,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0-16711121739",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "expr": "container_memory_working_set_bytes{container_label_com_docker_swarm_service_name=\"monitoring_cpuload\"}",
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Memory usage",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
         "x": 12,
         "y": 0
       },
@@ -292,7 +318,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "tooltip": {
           "hideZeros": false,
@@ -308,14 +334,14 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "avg(rate(container_cpu_usage_seconds_total{container_label_com_docker_swarm_service_name=\"monitoring_cpuload\"}[30s]))",
+          "expr": "avg(rate(container_cpu_usage_seconds_total{container_label_com_docker_swarm_service_name=\"monitoring_cpuload\"}[1m]))",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "CPU Usage (30s aggreagation)",
+      "title": "CPU Usage (1m aggreagation)",
       "type": "timeseries"
     },
     {
@@ -460,7 +486,7 @@
           "dsType": "influxdb",
           "groupBy": [
             {
-              "params": ["$__interval"],
+              "params": ["1s"],
               "type": "time"
             },
             {
@@ -585,7 +611,7 @@
           "dsType": "influxdb",
           "groupBy": [
             {
-              "params": ["$__interval"],
+              "params": ["1s"],
               "type": "time"
             },
             {
@@ -711,7 +737,7 @@
           "dsType": "influxdb",
           "groupBy": [
             {
-              "params": ["$__interval"],
+              "params": ["1s"],
               "type": "time"
             },
             {
@@ -837,7 +863,7 @@
           "dsType": "influxdb",
           "groupBy": [
             {
-              "params": ["$__interval"],
+              "params": ["1s"],
               "type": "time"
             },
             {
@@ -862,7 +888,8 @@
                 "type": "max"
               }
             ]
-          ]
+          ],
+          "tags": []
         },
         {
           "alias": "p90",
@@ -2050,7 +2077,7 @@
           "dsType": "influxdb",
           "groupBy": [
             {
-              "params": ["$__interval"],
+              "params": ["1s"],
               "type": "time"
             },
             {
@@ -2401,8 +2428,8 @@
     ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2025-08-05T07:25:00.000Z",
+    "to": "2025-08-05T08:35:00.000Z"
   },
   "timepicker": {
     "refresh_intervals": ["10s", "30s", "5m", "30m"]
@@ -2410,6 +2437,6 @@
   "timezone": "browser",
   "title": "k6 Load Testing dasdasdas",
   "uid": "Reasd",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
