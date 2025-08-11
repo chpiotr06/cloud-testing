@@ -17,6 +17,7 @@ type Session struct {
 	Email    string `json:"email"`
 	Exp      string `json:"exp"`
 	Iat      string `json:"iat"`
+	Payload  string `json:"payload"`
 }
 
 func (s *Session) insertToCache(memcacheClient *memcache.Client, exp int32) (err error) {

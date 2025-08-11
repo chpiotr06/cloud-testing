@@ -1,8 +1,8 @@
 {
-  "appPort": 3000,
+  "appPort": 4000,
   "cache": {
     "host": "memcached",
     "port": 11211,
-    "expirationTime": 50
+    "expirationTime": 240
   }
 }

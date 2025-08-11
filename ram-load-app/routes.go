@@ -3,13 +3,14 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 func (s *server) health(w http.ResponseWriter, _ *http.Request) {
-	w.Write([]byte("ok"))
+	jsonResponse(w, &s.cfg, 200)
 }
 
 func (s *server) getSession(w http.ResponseWriter, req *http.Request) {
@@ -42,6 +43,7 @@ func (s *server) postSession(w http.ResponseWriter, req *http.Request) {
 		Email:    userSession.Email,
 		Iat:      now.Format(time.RFC3339),
 		Exp:      now.Add(time.Hour * 24).Format(time.RFC3339),
+		Payload: strings.Repeat("A", 1<<12),
 	}
 
 	err = serverSession.insertToCache(s.cache, int32(s.cfg.CacheConfig.ExpirationTime))
