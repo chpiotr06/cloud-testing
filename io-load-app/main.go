@@ -9,11 +9,11 @@ import (
 )
 
 var fileMap = map[string]string{
-	"1mb":  "1mb.txt",
-	"5mb":  "5mb.txt",
-	"10mb": "10mb.txt",
-	"25mb": "25mb.txt",
-	"50mb": "50mb.txt",
+	"5kb":  "5kb.txt",
+	"10kb": "10kb.txt",
+	"25kb": "25kb.txt",
+	"50kb": "50kb.txt",
+	"100kb": "100kb.txt",
 }
 
 func main() {

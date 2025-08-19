@@ -2435,7 +2435,7 @@
     "refresh_intervals": ["10s", "30s", "5m", "30m"]
   },
   "timezone": "browser",
-  "title": "k6 Load Testing dasdasdas",
+  "title": "k6 Load Testing",
   "uid": "Reasd",
   "version": 2,
   "weekStart": ""
