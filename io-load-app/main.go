@@ -71,7 +71,6 @@ func streamHandler(w http.ResponseWriter, req *http.Request) {
 
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	r.Body = http.MaxBytesReader(w, r.Body, 100<<20) // 100 MB max
-	fmt.Println("Incomming file to upload")
 	if err := r.ParseMultipartForm(100 << 20); err != nil {
 		http.Error(w, "File too large or invalid form", http.StatusBadRequest)
 		return
@@ -87,19 +86,17 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	// Save to disk in /tmp (each upload unique filename)
 	dstPath := filepath.Join(os.TempDir(), handler.Filename)
 	out, err := os.Create(dstPath)
-	fmt.Println(os.TempDir())
 	if err != nil {
 		http.Error(w, "Could not create file: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer out.Close()
 
-	written, err := io.Copy(out, file)
+	_, err = io.Copy(out, file)
 	if err != nil {
 		http.Error(w, "Failed to save file: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	fmt.Fprintf(w, "Saved %d bytes to %s\n", written, dstPath)
 }
