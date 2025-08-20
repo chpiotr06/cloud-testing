@@ -1,6 +1,6 @@
 services:
   ioload:
-    container: io-load-app-ioload
+    image: io-load-app-ioload
     ports:
       - "4000:3000"
 
