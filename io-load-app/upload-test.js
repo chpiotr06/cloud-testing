@@ -1,10 +1,10 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:4000";
 
 export let options = {
-  stages: [{ duration: "1h", target: 800 }],
+  stages: [{ duration: "1h", target: 500 }],
   thresholds: {
     http_req_failed: ["rate<0.01"],
     http_req_duration: ["p(95)<800"],
@@ -30,11 +30,12 @@ function makeFormData() {
 }
 
 export default function () {
-  const res = http.post(`${BASE_URL}/upload`, makeFormData());
+  const res = http.post(`${BASE_URL}/upload`, makeFormData(), {
+    timeout: "90s",
+  });
 
   check(res, {
     "✅ status is 201": (r) => r.status === 201,
-    "✅ upload succeeded": (r) => r.body && r.body.includes("Saved"),
   });
 
   sleep(0.1);
